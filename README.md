@@ -3,9 +3,9 @@
 # Problèmes à corriger :
 * 
 # Commits :
-### Commit 1(Quentin):
+### Commit 0(Quentin):
 * Creation du fichier main .py
-### Commit 2(Jean):  
+### Commit 1(Jean):  
 * Creation de la fenetre
 * Plusieurs tests :  
 -Comment bouger un objet sur l'ecran sans mitrailler le clavier,  
