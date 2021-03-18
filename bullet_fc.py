@@ -17,5 +17,3 @@ def bullet(screen, launcher_position, mooving):
 #Probleme:
 #pourquoi le nuage reste coller au ballon ??? J'aimerais une traine de nuage plein de jpg colle
 #apres je pourrais les espacer avec un tic mais tant qu'il reste coller...
-
-
