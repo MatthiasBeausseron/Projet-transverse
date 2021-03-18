@@ -17,3 +17,13 @@
 * Creation du fichier movement .py qui comporte les fonctions pour faire bouger un objets sur des equations horaires en fonction du temps dans le jeu, de l'angle d'attaque et de la force initiale d'attaque.  
 Les explications sont dans le code sous forme de commentaires.
 * Changement du fond d'ecran (j'avais prit la premiere photo de google là c'est mieux)
+### Commit 3('t')(Quentin):
+* 
+### Commit 4(Victor):
+* 
+### Commit 5('Fonction mouvement')(Quentin):
+* 
+### Commit 6(Jean):
+* Creation d'un dossier photos (ou on met toutes les photos)
+* Ajout du fichier bullet_fc.py ou se trouve une fonction qui met des nuages sur la courbe du ballon derriere lui
+* Plus quelques retouches du code

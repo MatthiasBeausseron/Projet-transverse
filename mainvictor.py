@@ -1,6 +1,6 @@
 import pygame
 import math
-from game import Game
+from gamevictor import Game
 pygame.init()
 
 
