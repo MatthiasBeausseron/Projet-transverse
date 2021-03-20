@@ -29,3 +29,8 @@ Les explications sont dans le code sous forme de commentaires.
 * Plus quelques retouches du code
 ### Commit 7:
 * Séance liveshare avec Victor et Quentin
+### Commit 8(Jean):
+* Creation de la classe Player (et d'une classe pour dessiner les nuages derriere lui)
+* Modification du fichier tester pour tester la classe mais ca reste un testeur
+* Le but de la classe c'est de pouvoir l'utiliser pour n'importe quelle boucle de jeu mais il faut quand meme ajouter environ 10 lignes dedans
+* Modification de l'image du nuage 
