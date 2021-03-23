@@ -28,7 +28,7 @@ class Trail(pygame.sprite.Sprite):
         self.rect.x += self.velocity
         self.rect.y -= self.velocity
         self.rotate()
-        if self.player.mooving_count > 100:
+        if self.player.mooving_count > 150:
             self.remove()
     
     def remove(self):
@@ -55,6 +55,10 @@ class Player(pygame.sprite.Sprite):
         self.attack = 10
         self.velocity = 3
         self.image = pygame.image.load('photos/perso.png')
+        self.image = pygame.transform.scale(self.image, (50, 150))
+        self.imageD = self.image
+        self.imageL = pygame.image.load('photos/ServietD.png')
+        self.imageL = pygame.transform.scale(self.imageL, (50, 150))
         self.position = self.image.get_rect()
         self.position.x = 30
         self.position.y = 500
@@ -66,11 +70,11 @@ class Player(pygame.sprite.Sprite):
 
     def move_right(self):
         self.position.x += self.velocity
-        self.image = pygame.image.load('photos/ServietD.png')
+        self.image = self.imageL
     
     def move_left(self):
         self.position.x -= self.velocity
-        self.image = pygame.image.load('photos/perso.png')
+        self.image = self.imageD
     
     def move_up(self):
         self.position.y -= self.velocity
@@ -106,15 +110,14 @@ class Player(pygame.sprite.Sprite):
             return 0
         if self.mooving:
             # constantes à placer en args quand chaque perso aura ses propres capacites
-            if last_time != self.mooving_count:
-                if 0 < self.position.x < 1400 and 0 < self.position.y < 800:
-                    # la balle ne passe plus a travers les murs mais ne rebondit pas non plus
-                    self.position.move_ip(applatisment_courbe, -equation_mouvement(self.mooving_count, force, angle))
-                # On ne peut pas verifier à time car =0 dans les (≈5) premieres secondes une autre solution 
-                #est de faire un if self.mooving_count < xx le temps que le ballon bouge
-                if int(equation_mouvement(self.mooving_count+5, force, angle)) == 0:
-                    self.mooving = False
-            if self.mooving_count % 7 == 0:
+            if 0 < self.position.x < 1400 and 0 < self.position.y < 800:
+                # la balle ne passe plus a travers les murs mais ne rebondit pas non plus
+                self.position.move_ip(applatisment_courbe, -equation_mouvement(self.mooving_count, force, angle))
+            # On ne peut pas verifier à time car =0 dans les (≈5) premieres secondes une autre solution 
+            #est de faire un if self.mooving_count < xx le temps que le ballon bouge
+            if int(equation_mouvement(self.mooving_count+5, force, angle)) == 0:
+                self.mooving = False
+            if self.mooving_count % 10 == 0:
                 self.whole_trail.add(Trail(self))
 
 
