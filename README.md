@@ -18,7 +18,7 @@
 Les explications sont dans le code sous forme de commentaires.
 * Changement du fond d'ecran (j'avais prit la premiere photo de google là c'est mieux)
 ### Commit 3('t')(Quentin):
-* 
+* commit de test 
 ### Commit 4(Victor):
 * 
 ### Commit 5('Fonction mouvement')(Quentin):
@@ -27,3 +27,10 @@ Les explications sont dans le code sous forme de commentaires.
 * Creation d'un dossier photos (ou on met toutes les photos)
 * Ajout du fichier bullet_fc.py ou se trouve une fonction qui met des nuages sur la courbe du ballon derriere lui
 * Plus quelques retouches du code
+### Commit 7:
+* Séance liveshare avec Victor et Quentin
+### Commit 8(Jean):
+* Creation de la classe Player (et d'une classe pour dessiner les nuages derriere lui)
+* Modification du fichier tester pour tester la classe mais ca reste un testeur
+* Le but de la classe c'est de pouvoir l'utiliser pour n'importe quelle boucle de jeu mais il faut quand meme ajouter environ 10 lignes dedans
+* Modification de l'image du nuage 

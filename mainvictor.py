@@ -12,16 +12,16 @@ pygame.display.set_caption("Smash bros")
 fenetre = pygame.display.set_mode((1500,1500))
 
 #importer l'arriere plan
-fond = pygame.image.load("background.png")
+fond = pygame.image.load("photos/background.png")
 
 #importer la banniere 'play'
-banniere = pygame.image.load("banniere.png")
+banniere = pygame.image.load("photos/banniere.png")
 banniere = pygame.transform.scale(banniere,(500,300))
 banniere_rect = banniere.get_rect()
 banniere_rect.x = math.ceil(fond.get_width() /4)
 
 #import le bouton play
-play_button = pygame.image.load("play.png")
+play_button = pygame.image.load("photos/play.png")
 play_button = pygame.transform.scale(play_button,(150,75))
 play_button_rect = play_button.get_rect()
 play_button_rect.x = math.ceil(fond.get_width() /3)

@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+import Mouves
 
 pygame.init()
 
@@ -7,11 +8,11 @@ pygame.init()
 fenetre = pygame.display.set_mode((1300, 600))
 
 # Chargement et collage du fond
-fond = pygame.image.load("background.png").convert()
+fond = pygame.image.load("photos/background.png").convert()
 fenetre.blit(fond, (0, 0))
 
 # Chargement et collage du personnage
-perso = pygame.image.load("perso.png").convert_alpha()
+perso = pygame.image.load("photos/perso.png").convert_alpha()
 position_perso = perso.get_rect()
 fenetre.blit(perso, position_perso)
 
@@ -27,7 +28,7 @@ while continuer:
             continuer = 0
         if event.type == KEYDOWN:
             if event.type == KEYDOWN:
-                mouves(event.key)
+                Mouves.mouves(event.key)
     # Re-collage
     fenetre.blit(fond, (0, 0))
     fenetre.blit(perso, position_perso)

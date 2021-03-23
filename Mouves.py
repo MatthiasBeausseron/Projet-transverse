@@ -1,4 +1,7 @@
 "Création de la fonction mouvement"
+import pygame
+from pygame.locals import *
+
 
 def mouves(key):
     global position_perso, perso

@@ -1,39 +1,23 @@
 import pygame
-import movement
-import bullet_fc
+from player import Player
 
 # screen initialisation
-screen_height = 1600
-screen_width = 850
+screen_height, screen_width = 1600, 850
 screen = pygame.display.set_mode((screen_height, screen_width))
 
 clock = pygame.time.Clock()
 FPS = 60  # Frames per second.
 
 # background initialisation
-# for each colors max = 255
-background_colors_RGB = (0, 10, 0)
 background_image = pygame.image.load("photos/stade_foot.jpg").convert()
 background_image = pygame.transform.scale(background_image, (screen_height, screen_width))
 background_image_position = [0, 0]
-object_colors_RGB = (0, 0, 255)
-
-# ball initialisation
-ball_size = (50, 50)
-ball_position = pygame.Rect((300, 300), ball_size)
-ball = pygame.Surface(ball_size)
-ball_image = pygame.image.load("photos/ballon.jpg").convert()
-ball_image = pygame.transform.scale(ball_image, ball_size)
-ball.blit(ball_image, (0, 0))
 
 # dictionnary of used keybords key with boolean
 pressed = {}
 
-# Initialisation de constantes pour fonctionnement de la fonction in_movement
-time = 0
-mooving = [False]
-# (to have real time modifie vitesse_mvt = 1)
-vitesse_mouvement = 20
+#Charger les classes sous de variables
+player = Player()
 
 # game's loop
 while True:
@@ -48,31 +32,39 @@ while True:
         elif event.type == pygame.KEYDOWN:
             pressed[event.key] = True
             if event.key == pygame.K_SPACE:
+                player.jumping = True
+            elif event.key == pygame.K_c:
                 # Le mouvement est activer on compte le temps à partir de ce moment
-                mooving = [True]
-                time = 0
+                player.mooving = True
+                player.mooving_count = 0
 
     
     # Deplacement du ballon 4 directions
     if pressed.get(pygame.K_RIGHT):
-        ball_position.move_ip(5, 0)
+        player.move_right()
     elif pressed.get(pygame.K_LEFT):
-        ball_position.move_ip(-5, 0)
+        player.move_left()
     elif pressed.get(pygame.K_DOWN):
-        ball_position.move_ip(0, 5)
+        player.move_down()
     elif pressed.get(pygame.K_UP):
-        ball_position.move_ip(0, -5)
+        player.move_up()
     
-    # If ball in a mouvement then call the function and count the time (to have real time vitesse_mvt = 1)
-    last_time = time
-    time += vitesse_mouvement/FPS
-    movement.in_movement(last_time, time, ball_position, mooving)
-    
-    # fill the screen the choosen color
-    screen.fill(background_colors_RGB)
+    last_count = player.mooving_count
+    player.mooving_count += 1
 
+    #activation of all the boolean functions
+    player.move_curve(last_count)
+    player.move_jump()
+    
     # add the object on the screen (order matter like layers)
     screen.blit(background_image, background_image_position)
-    screen.blit(ball, ball_position)
-    bullet_fc.bullet(screen, ball_position, mooving)
+
+    # taking each cloud to make it moove
+    for nuage in player.whole_trail:
+        nuage.move()
+        
+    # On applique le groupe de nuages sur l'écran
+    player.whole_trail.draw(screen)
+    
+    screen.blit(player.image, player.position)
     pygame.display.update()
