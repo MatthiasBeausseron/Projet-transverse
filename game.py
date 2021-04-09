@@ -29,7 +29,6 @@ class Game():
             self.display.fill(self.YELLOW)
             self.image()
             self.draw_text('Smash Bros', 125, self.DISPLAY_W/2, self.DISPLAY_H/2)
-            pygame.time.wait(5000)
             self.window.blit(self.display, (0,0))
             pygame.display.update()
             self.reset_keys()
