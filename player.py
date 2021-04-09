@@ -44,8 +44,6 @@ class Trail(pygame.sprite.Sprite):
         temp.set_alpha(opacity)        
         self.origin_image.blit(temp, [x, y])
 
-
-
 class Player(pygame.sprite.Sprite):
 
     def __init__(self):
@@ -119,5 +117,3 @@ class Player(pygame.sprite.Sprite):
                 self.mooving = False
             if self.mooving_count % 10 == 0:
                 self.whole_trail.add(Trail(self))
-
-

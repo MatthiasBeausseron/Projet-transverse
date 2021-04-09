@@ -36,3 +36,8 @@ Les explications sont dans le code sous forme de commentaires.
 * Modification de l'image du nuage 
 ### Commit 9:
 * Seance de groupe à 5
+### Commit 10('Commit Victor')(Victor):
+* Creation de classes dont la classe menu qui appelle les autres classes
+### Commit 11(Jean):
+* Conversion du tester en classe qu'il suffit de charger dans la classe menu et d'appeler au bon moment 
+* Nettoyage du code 

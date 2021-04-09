@@ -1,4 +1,5 @@
 import pygame
+from round import Round
 
 class Menu():
     def __init__(self, game):
@@ -8,6 +9,7 @@ class Menu():
         self.run_display = True
         self.cursor_rect = pygame.Rect(0, 0, 40, 40)
         self.offset = - 100
+        self.round = Round()
 
 
     def draw_cursor(self):
@@ -91,6 +93,8 @@ class MainMenu(Menu):
         if self.game.START_KEY:
             if self.state == 'Start':
                 self.game.playing = True
+                self.round.loop()
+                quit()
             elif self.state == 'Options':
                 self.game.curr_menu = self.game.options
             elif self.state == 'Credits':
@@ -151,7 +155,7 @@ class VolumeMenu(Menu):
         self.volupx, self.volupy = self.mid_w + 75, self.mid_h + 50
         self.voldownx, self.voldowny = self.mid_w + -80, self.mid_h + 10
         self.cursor_rect.midtop = (self.volupx + self.offset, self.volupy)
-        self.sound = pygame.mixer.music.set_volume(0.5)
+        self.sound = pygame.mixer.music.set_volume(0)
 
     def display_menu(self):
         self.run_display = True
@@ -216,7 +220,6 @@ class VolumeMenu(Menu):
             self.game.draw_text("-|◙◙◙◙◙◙◙◙◙◙ |+", 60, self.game.DISPLAY_W / 2 - 22, self.game.DISPLAY_H / 2 + 200)
         elif pygame.mixer.music.get_volume() == 1:
             self.game.draw_text("-|◙◙◙◙◙◙◙◙◙◙◙|+", 60, self.game.DISPLAY_W / 2 - 22, self.game.DISPLAY_H / 2 + 200)
-
 
 class ControlsMenu(Menu):
     def __init__(self, game):
