@@ -40,4 +40,6 @@ Les explications sont dans le code sous forme de commentaires.
 * Creation de classes dont la classe menu qui appelle les autres classes
 ### Commit 11(Jean):
 * Conversion du tester en classe qu'il suffit de charger dans la classe menu et d'appeler au bon moment 
-* Nettoyage du code 
+* Nettoyage du code
+* 11.2 -> Deplacement de tout le programme de la boucle dans la classe Player, mtn on peut dans la classe round appeler la classe player et juste appeler une fonction dans la while 
+* Probleme: Quand on charge plusieurs player dans le while on ne peut bouger qu'un seul des deux, (celui appelé en premier)

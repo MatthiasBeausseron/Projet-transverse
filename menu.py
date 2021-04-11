@@ -1,5 +1,5 @@
 import pygame
-from round import Round
+from player import Round
 
 class Menu():
     def __init__(self, game):
