@@ -16,13 +16,13 @@ print(map)
 # for each colors max = 255
 background_colors_RGB = (0, 10, 0)
 if map == 1:
-    background_image = pygame.image.load("photos/maps/stade_1.jpg").convert()
+    background_image = pygame.image.load("photos/maps/stade_1.png").convert()
 elif map == 2:
-    background_image = pygame.image.load("photos/maps/stade_2.jpg").convert()
+    background_image = pygame.image.load("photos/maps/stade_2.png").convert()
 elif map == 3:
-    background_image = pygame.image.load("photos/maps/stade_3.jpg").convert()
+    background_image = pygame.image.load("photos/maps/stade_3.png").convert()
 else:
-    background_image = pygame.image.load("photos/maps/stade_0.jpg").convert()
+    background_image = pygame.image.load("photos/maps/stade_0.png").convert()
 background_image = pygame.transform.scale(background_image, (screen_height, screen_width))
 objx = 0
 objy = 0
@@ -35,7 +35,7 @@ ball_size = (50, 50)
 ball_position = pygame.Rect((300, 300), ball_size)
 ball = pygame.Surface(ball_size)
 ball.fill((0, 255, 0))
-ball_image = pygame.image.load("photos/ballon.jpg").convert()
+ball_image = pygame.image.load("photos/ServietD.png").convert()
 ball_image = pygame.transform.scale(ball_image, ball_size)
 ball.blit(ball_image, (0, 0))
 

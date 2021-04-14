@@ -43,3 +43,5 @@ Les explications sont dans le code sous forme de commentaires.
 * Nettoyage du code
 * 11.2 -> Deplacement de tout le programme de la boucle dans la classe Player, mtn on peut dans la classe round appeler la classe player et juste appeler une fonction dans la while 
 * Probleme: Quand on charge plusieurs player dans le while on ne peut bouger qu'un seul des deux, (celui appelé en premier)
+### Commit 12(Seance Groupe):
+*

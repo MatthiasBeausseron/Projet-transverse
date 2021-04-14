@@ -186,14 +186,13 @@ class VolumeMenu(Menu):
             self.game.curr_menu = self.game.main_menu
             self.run_display = False
         elif self.game.LEFT_KEY:
-            self.volume = pygame.mixer.music.get_volume() - 0.09
+            self.volume = pygame.mixer.music.get_volume() - 0.1
             pygame.mixer.music.set_volume(self.volume)
+            if self.game.LEFT_KEY and pygame.mixer.music.get_volume() < 0.1000:
+                pygame.mixer.music.set_volume(0)
         elif self.game.RIGHT_KEY:
-            self.volume = pygame.mixer.music.get_volume() + 0.09
+            self.volume = pygame.mixer.music.get_volume() + 0.1
             pygame.mixer.music.set_volume(self.volume)
-        elif self.game.LEFT_KEY and 0.000 < pygame.mixer.music.get_volume() <0.1000 :
-            pygame.mixer.music.set_volume(0)
-        self.run_display = False
 
     def draw_volume(self):
         if pygame.mixer.music.get_volume() == 0.0:
