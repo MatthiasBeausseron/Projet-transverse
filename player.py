@@ -1,5 +1,5 @@
 import pygame
-
+from sprite import MySprite
 
 class Trail(pygame.sprite.Sprite):
 
@@ -44,12 +44,11 @@ class Trail(pygame.sprite.Sprite):
         temp.set_alpha(opacity)        
         self.origin_image.blit(temp, [x, y])
 
-
-
 class Player(pygame.sprite.Sprite):
 
     def __init__(self):
         super().__init__()
+        self.sprite = MySprite()
         self.health = 100
         self.health_max = 100
         self.attack = 10
@@ -91,7 +90,7 @@ class Player(pygame.sprite.Sprite):
                 self.jump_count = 10
                 self.jumping = False
 
-    def move_curve(self, last_time, force = 20, angle = 45, applatisment_courbe = 5):
+    def move_curve(self, force = 20, angle = 45, applatisment_courbe = 5):
         # applatisment_courbe += self.velocity**2
         def equation_mouvement(x, V0, A):
             import math
@@ -120,4 +119,66 @@ class Player(pygame.sprite.Sprite):
             if self.mooving_count % 10 == 0:
                 self.whole_trail.add(Trail(self))
 
+    def checking_events(self, right, left, up, down, Round):
+        if Round.pressed.get(right):
+            self.move_right()
+        elif Round.pressed.get(left):
+            self.move_left()
+        elif Round.pressed.get(down):
+            self.move_down()
+        elif Round.pressed.get(up):
+            self.move_up()
 
+    def to_do_in_the_loop(self, right, left, up, down, Round):
+        Round.creating_events(pygame.K_SPACE, pygame.K_c, self)
+        self.checking_events(right, left, up, down, Round)
+        self.mooving_count += 1
+        self.move_curve()
+        self.move_jump()
+        for nuage in self.whole_trail:
+                    nuage.move()
+        self.whole_trail.draw(Round.screen)
+        Round.screen.blit(self.image, self.position)
+
+class Round(pygame.sprite.Sprite):
+
+    def __init__(self):
+        super().__init__()
+        self.screen_height = 1600
+        self.screen_width = 850
+        self.screen = pygame.display.set_mode((self.screen_height, self.screen_width))
+        self.clock = pygame.time.Clock()
+        self.FPS = 60
+        self.background_image = pygame.image.load("photos/stade_foot.jpg").convert()
+        self.background_image = pygame.transform.scale(self.background_image, 
+            (self.screen_height, self.screen_width))
+        self.background_image_position = [0, 0]
+        self.pressed = {}
+        self.player = Player()
+        self.player2 = Player()
+
+    def creating_events(self, jump, hit, player):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+            elif event.type == pygame.KEYUP:
+                self.pressed[event.key] = False
+            elif event.type == pygame.KEYDOWN:
+                self.pressed[event.key] = True
+                if event.key == jump:
+                    player.jumping = True
+                elif event.key == hit:
+                    player.mooving = True
+                    player.mooving_count = 0
+    
+    def loop(self):
+        while True:
+            self.clock.tick(self.FPS)
+            self.screen.blit(self.background_image, self.background_image_position)
+            self.player.to_do_in_the_loop(pygame.K_RIGHT, pygame.K_LEFT, pygame.K_UP, pygame.K_DOWN, self)
+            self.player2.to_do_in_the_loop(pygame.K_d, pygame.K_q, pygame.K_z, pygame.K_s, self)
+            pygame.display.update()
+
+
+test = Round()
+test.loop()

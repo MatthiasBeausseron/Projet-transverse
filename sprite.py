@@ -1,34 +1,31 @@
 import pygame
 
 class MySprite(pygame.sprite.Sprite):
-    def __init__(self):
-        super(MySprite, self).__init__()
 
-class MySprite(pygame.sprite.Sprite):
     def __init__(self):
         super(MySprite, self).__init__()
 
         self.images = []
-        self.images.append(pygame.image.load('images/IdleD0.png'))
-        self.images.append(pygame.image.load('images/IdleD1.png'))
-        self.images.append(pygame.image.load('images/IdleD2.png'))
-        self.images.append(pygame.image.load('images/IdleD4.png'))
-        self.images.append(pygame.image.load('images/IdleD4.png'))
-        self.images.append(pygame.image.load('images/IdleG0.png'))
-        self.images.append(pygame.image.load('images/IdleG1.png'))
-        self.images.append(pygame.image.load('images/IdleG2.png'))
-        self.images.append(pygame.image.load('images/IdleG3.png'))
-        self.images.append(pygame.image.load('images/IdleG4.png'))
-         self.images.append(pygame.image.load('images/WalkServiet00.png'))
-        self.images.append(pygame.image.load('images/WalkServiet01.png'))
-        self.images.append(pygame.image.load('images/WalkServiet02.png'))
-        self.images.append(pygame.image.load('images/WalkServiet03.png'))
-        self.images.append(pygame.image.load('images/WalkServiet04.png'))
-        self.images.append(pygame.image.load('images/WalkServiet05.png'))
-        self.images.append(pygame.image.load('images/WalkServiet06.png'))
-        self.images.append(pygame.image.load('images/WalkServiet07.png'))
-        self.images.append(pygame.image.load('images/WalkServiet08.png'))
-        self.images.append(pygame.image.load('images/WalkServiet09.png'))
+        self.images.append(pygame.image.load('photos/sprite/IdleD0.png'))
+        self.images.append(pygame.image.load('photos/sprite/IdleD1.png'))
+        self.images.append(pygame.image.load('photos/sprite/IdleD2.png'))
+        self.images.append(pygame.image.load('photos/sprite/IdleD3.png'))
+        self.images.append(pygame.image.load('photos/sprite/IdleD4.png'))
+        self.images.append(pygame.image.load('photos/sprite/IdleG0.png'))
+        self.images.append(pygame.image.load('photos/sprite/IdleG1.png'))
+        self.images.append(pygame.image.load('photos/sprite/IdleG2.png'))
+        self.images.append(pygame.image.load('photos/sprite/IdleG3.png'))
+        self.images.append(pygame.image.load('photos/sprite/IdleG4.png'))
+        self.images.append(pygame.image.load('photos/sprite/WalkServiet00.png'))
+        self.images.append(pygame.image.load('photos/sprite/WalkServiet01.png'))
+        self.images.append(pygame.image.load('photos/sprite/WalkServiet02.png'))
+        self.images.append(pygame.image.load('photos/sprite/WalkServiet03.png'))
+        self.images.append(pygame.image.load('photos/sprite/WalkServiet04.png'))
+        self.images.append(pygame.image.load('photos/sprite/WalkServiet05.png'))
+        self.images.append(pygame.image.load('photos/sprite/WalkServiet06.png'))
+        self.images.append(pygame.image.load('photos/sprite/WalkServiet07.png'))
+        self.images.append(pygame.image.load('photos/sprite/WalkServiet08.png'))
+        self.images.append(pygame.image.load('photos/sprite/WalkServiet09.png'))
 
         self.index = 0
         self.idle = 0
