@@ -45,3 +45,7 @@ Les explications sont dans le code sous forme de commentaires.
 * Probleme: Quand on charge plusieurs player dans le while on ne peut bouger qu'un seul des deux, (celui appelé en premier)
 ### Commit 12(Seance Groupe):
 *
+### Commit 13(Jean):
+* Ajout du Sprite dans la classe player: j'ai pas reussi à relier les deux classes donc j'ai reecrit la fonction dans la classe player et créée une fonction qui importe la liste de photos
+* Les deux joueurs peuvent maintenant sauter séparemment avec leurs touches haut bas
+* Creation de la fonction pushed: quand les deux joueurs sont à cote (sur x) ils peuvent appuyer sur une touche donné en parametre de to do in the loop (ici 'e' et 'r') pour faire sauter l'autre joueur. 
