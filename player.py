@@ -176,7 +176,7 @@ class Player(pygame.sprite.Sprite):
         health = font.render(str(self.health), True, (0, 255, 0), (255, 255, 255))
         Round.screen.blit(health, self.position)
         if self.health <= 0:
-            pygame.time.wait(3000)
+            #pygame.time.wait(3000)
             Round.playing = False
 
     def checking_events(self, right, left, up, down, Round):
@@ -232,7 +232,7 @@ class Round(pygame.sprite.Sprite):
                 self.pressed[event.key] = True
     
     def loop(self):
-        while self.playing:
+        while True:
             self.clock.tick(self.FPS)
             self.screen.blit(self.background_image, self.background_image_position)
             self.player.to_do_in_the_loop(pygame.K_RIGHT, pygame.K_LEFT, pygame.K_UP, pygame.K_DOWN, self, self.player2)

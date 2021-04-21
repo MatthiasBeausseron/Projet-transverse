@@ -1,7 +1,10 @@
 # Projet-transverse
 ( Presentation à faire )
 # Problèmes à corriger :
-* Voir fichier movement .py ligne 34
+* Les deux Joueurs commencent à la même position
+* On ne peut pas faire deux actions en même temps
+* Il faudrait ajouter un effet plus visuel lorsqu'on donne un coup, et la barre de vie 
+
 # Commits :
 ### Commit 0(Quentin):
 * Creation du fichier main .py
