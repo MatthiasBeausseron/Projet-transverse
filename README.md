@@ -1,10 +1,5 @@
 # Projet-transverse
 ( Presentation à faire )
-# Problèmes à corriger :
-* Les deux Joueurs commencent à la même position
-* On ne peut pas faire deux actions en même temps
-* Il faudrait ajouter un effet plus visuel lorsqu'on donne un coup, et la barre de vie 
-
 # Commits :
 ### Commit 0(Quentin):
 * Creation du fichier main .py
@@ -47,7 +42,7 @@ Les explications sont dans le code sous forme de commentaires.
 * 11.2 -> Deplacement de tout le programme de la boucle dans la classe Player, mtn on peut dans la classe round appeler la classe player et juste appeler une fonction dans la while 
 * Probleme: Quand on charge plusieurs player dans le while on ne peut bouger qu'un seul des deux, (celui appelé en premier)
 ### Commit 12(Seance Groupe):
-*
+* 
 ### Commit 13(Jean):
 * Ajout du Sprite dans la classe player: j'ai pas reussi à relier les deux classes donc j'ai reecrit la fonction dans la classe player et créée une fonction qui importe la liste de photos
 * Les deux joueurs peuvent maintenant sauter séparemment avec leurs touches haut bas
@@ -57,3 +52,5 @@ Les explications sont dans le code sous forme de commentaires.
 * Ajout de pertes de vie lors de coups (+courbe )
 * Ajout de la fonction de gravité
 * Plus redefinition des touches: haut = sauter bas = frapper 
+### Commit 15(Groupe):
+* '+' j'ai réglé le problème suivant: [ici](https://github.com/MatthiasBeausseron/Projet-transverse/issues/1)
