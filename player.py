@@ -170,14 +170,21 @@ class Player(sprite.MySprite):
             Round.playing = False
 
     def checking_events(self, right, left, up, down, Round):
-        if Round.pressed.get(right):
+        if Round.pressed.get(up) and Round.pressed.get(left):
+            self.jumping = True
+            self.move_left()
+        elif Round.pressed.get(up) and Round.pressed.get(right):
+            self.jumping = True
+            self.move_right()
+        elif Round.pressed.get(up):
+            self.jumping = True
+        elif Round.pressed.get(down):
+            self.attack = True
+        elif Round.pressed.get(right):
             self.move_right()
         elif Round.pressed.get(left):
             self.move_left()
-        elif Round.pressed.get(down):
-            self.attack = True
-        elif Round.pressed.get(up):
-            self.jumping = True
+        
         self.mooving_count += 1
         self.move_curve()
         self.move_jump()
