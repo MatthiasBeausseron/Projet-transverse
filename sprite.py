@@ -1,59 +1,48 @@
 import pygame
 
+
+# import sprite
+# class blabla(sprite.MySprite)
+# super().init("mummy")
+
+
 class MySprite(pygame.sprite.Sprite):
 
-    def __init__(self):
-        super(MySprite, self).__init__()
+    def __init__(self, sprite_name):
+        super().__init__()
 
-        self.images = []
-        self.images.append(pygame.image.load('photos/sprite/IdleD0.png'))
-        self.images.append(pygame.image.load('photos/sprite/IdleD1.png'))
-        self.images.append(pygame.image.load('photos/sprite/IdleD2.png'))
-        self.images.append(pygame.image.load('photos/sprite/IdleD3.png'))
-        self.images.append(pygame.image.load('photos/sprite/IdleD4.png'))
-        self.images.append(pygame.image.load('photos/sprite/IdleG0.png'))
-        self.images.append(pygame.image.load('photos/sprite/IdleG1.png'))
-        self.images.append(pygame.image.load('photos/sprite/IdleG2.png'))
-        self.images.append(pygame.image.load('photos/sprite/IdleG3.png'))
-        self.images.append(pygame.image.load('photos/sprite/IdleG4.png'))
-        self.images.append(pygame.image.load('photos/sprite/WalkServiet00.png'))
-        self.images.append(pygame.image.load('photos/sprite/WalkServiet01.png'))
-        self.images.append(pygame.image.load('photos/sprite/WalkServiet02.png'))
-        self.images.append(pygame.image.load('photos/sprite/WalkServiet03.png'))
-        self.images.append(pygame.image.load('photos/sprite/WalkServiet04.png'))
-        self.images.append(pygame.image.load('photos/sprite/WalkServiet05.png'))
-        self.images.append(pygame.image.load('photos/sprite/WalkServiet06.png'))
-        self.images.append(pygame.image.load('photos/sprite/WalkServiet07.png'))
-        self.images.append(pygame.image.load('photos/sprite/WalkServiet08.png'))
-        self.images.append(pygame.image.load('photos/sprite/WalkServiet09.png'))
+        self.images = pygame.image.load(f'images/{sprite_name}.png')
+        self.current_image = 0
+        self.images = animations.get(sprite_name)
+        self.animation = False
 
-        self.index = 0
-        self.idle = 0
-        self.cnt = 0
+        def start_animation():
+            self.animation = True
 
-        self.image = self.images[self.index]
+        def animate(self, yes=False):
+            self.current_image += 1
 
-        self.rect = pygame.Rect(5, 5, 150, 198)
+            if self.current_image >= len(self.images):
+                self.current_image = 0
+                if yes is False:
+                    self.animation = False
 
-    def update(self):
-        keys = pygame.key.get_pressed()
-        if self.cnt % 9 == 0:
-            self.index += 1
+            self.image = self.images[self.current_image]
 
-        if self.index >= len(self.images):
-            self.index = 0
 
-        if self.idle == 0:
-            self.image = self.images[self.index % 5]
+def load_animation_images(sprite_name):
+    images = []
+    path = f"assets/{sprite_name}/{sprite_name}"
 
-        if self.idle == 1:
-            self.image = self.images[self.index % 5 + 5]
+    for num in range(1, 24):
+        image_path = images + str(num) + '.png'
+        images.append(pygame.image.load(image_path))
+    return images
 
-        if keys[pygame.K_RIGHT]:
-            self.image = self.images[self.index % 5 + 10]
-            self.idle = 0
-        if keys[pygame.K_LEFT]:
-            self.image = self.images[self.index % 5 + 15]
-            self.idle = 1
 
-        self.cnt += 1
+animations = {
+    'IdleD': load_animation_images('IdleD')
+    'IdleG': load_animation_images('IdleG')
+    'WalkServietD' : load_animation_images('WalkServietD')
+    'walkServietG' : load_animation_images('WalkServietG')
+}

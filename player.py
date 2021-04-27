@@ -1,5 +1,5 @@
 import pygame
-
+import sprite
 class Trail(pygame.sprite.Sprite):
 
     def __init__(self, Player):
@@ -70,10 +70,10 @@ def import_images(character):
         pass
     return images_set
 
-class Player(pygame.sprite.Sprite):
+class Player(sprite.MySprite):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self ,start):
+        super().__init__('IdleD')
         self.health = 100
         #self.health_max = 100
         self.hit = 2
@@ -84,7 +84,6 @@ class Player(pygame.sprite.Sprite):
         self.mooving_count = 0
         self.mooving = False
         self.whole_trail = pygame.sprite.Group()
-        self.images = import_images("Servietski")
         self.index = 0
         self.idle = 0
         self.cnt = 0
@@ -93,26 +92,20 @@ class Player(pygame.sprite.Sprite):
         for i in range(0, len(self.images)):
             self.images[i] = pygame.transform.scale(self.images[i], (50, 150))
         self.position = self.image.get_rect()
-        self.position.x = 30
+        self.position.x = start
         self.position.y = 500
 
-    def update(self):
-        if self.cnt % 9 == 0:
-            self.index += 1
-        if self.index >= len(self.images):
-            self.index = 0
-        if self.idle == 0:
-            self.image = self.images[self.index % 5]
-        if self.idle == 1:
-            self.image = self.images[self.index % 5 + 5]
-        self.cnt += 1
+    def update_animation(self):
+        self.animate()
 
     def move_right(self):
         self.position.x += self.velocity
+        self.image = self.images[self.index % 5 + 10]
         self.idle = 0
 
     def move_left(self):
         self.position.x -= self.velocity
+        self.image = self.images[self.index % 5 + 15]
         self.idle = 1
 
     def move_up(self):
@@ -167,14 +160,11 @@ class Player(pygame.sprite.Sprite):
             self.health -= self.hit
         oplayer.attack = False
 
-    def gravity(self):
-        self.move_down()
-
-    def display_health(self, Round):
+    def display_health(self, Round, position, color):
         pygame.init()
-        font = pygame.font.Font((None), 30)
-        health = font.render(str(self.health), True, (0, 255, 0), (255, 255, 255))
-        Round.screen.blit(health, self.position)
+        font = pygame.font.Font((None), 100)
+        health = font.render(str(self.health), True, color, (0, 0, 0))
+        Round.screen.blit(health, position)
         if self.health <= 0:
             #pygame.time.wait(3000)
             Round.playing = False
@@ -195,14 +185,14 @@ class Player(pygame.sprite.Sprite):
         for nuage in self.whole_trail:
             nuage.move()
 
-    def to_do_in_the_loop(self, right, left, up, down, Round, oplayer):
+    def to_do_in_the_loop(self, right, left, up, down, Round, oplayer, position, color):
         Round.creating_events()
         self.checking_events(right, left, up, down, Round)
         self.whole_trail.draw(Round.screen)
         Round.screen.blit(self.image, self.position)
         self.pushed(oplayer)
-        self.gravity()
-        self.display_health(Round)
+        self.move_down()
+        self.display_health(Round, position, color)
 
 class Round(pygame.sprite.Sprite):
 
@@ -219,8 +209,10 @@ class Round(pygame.sprite.Sprite):
             (self.screen_height, self.screen_width))
         self.background_image_position = [0, 0]
         self.pressed = {}
-        self.player = Player()
-        self.player2 = Player()
+        self.player = Player(1300)
+        self.player2 = Player(30)
+        self.position1 = (500, 700)
+        self.position2 = (1000, 700)
 
     def creating_events(self):
         for event in pygame.event.get():
@@ -235,8 +227,12 @@ class Round(pygame.sprite.Sprite):
         while True:
             self.clock.tick(self.FPS)
             self.screen.blit(self.background_image, self.background_image_position)
-            self.player.to_do_in_the_loop(pygame.K_RIGHT, pygame.K_LEFT, pygame.K_UP, pygame.K_DOWN, self, self.player2)
-            self.player2.to_do_in_the_loop(pygame.K_d, pygame.K_q, pygame.K_z, pygame.K_s, self, self.player)
+            self.player.to_do_in_the_loop(pygame.K_RIGHT, pygame.K_LEFT, pygame.K_UP, pygame.K_DOWN, 
+                self, self.player2, self.position2, (255, 0, 0))
+            self.player2.to_do_in_the_loop(pygame.K_d, pygame.K_q, pygame.K_z, pygame.K_s, 
+                self, self.player, self.position1, (0, 0, 255))
             pygame.display.update()
+            self.player.update_animation()
 
 Round().loop()
+`
