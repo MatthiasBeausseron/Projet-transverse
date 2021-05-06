@@ -267,6 +267,7 @@ class CreditsMenu(Menu):
             self.game.draw_text('Quentin FOURIE', 40, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 + 130)
             self.game.draw_text('Victor JULOU', 40, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 + 170)
             self.game.draw_text('ROMAIN PLOT', 40, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 + 210)
+            self.game.draw_text('Music : Main Theme Brawl', 40, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 + 260)
             self.blit_screen()
 
 class BonusMenu(Menu):

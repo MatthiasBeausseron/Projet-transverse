@@ -1,5 +1,7 @@
 import pygame
 import sprite
+import time
+
 class Trail(pygame.sprite.Sprite):
 
     def __init__(self, Player):
@@ -14,7 +16,7 @@ class Trail(pygame.sprite.Sprite):
         self.rect.y = Player.position.y + 30
         self.origin_image = self.image
         self.angle = 0
-    
+        
     def rotate(self):
         if self.angle <= 0:
             self.angle += self.angle_velocity
@@ -72,10 +74,11 @@ def import_images(character):
 
 class Player(sprite.MySprite):
 
-    def __init__(self ,start):
-        super().__init__('IdleD')
-        self.health = 100
-        #self.health_max = 100
+    def __init__(self, start):
+        super().__init__("IdleD")
+        self.life = 3
+        self.health = 0
+        # self.health_max = 100
         self.hit = 2
         self.attack = False
         self.velocity = 10
@@ -84,13 +87,7 @@ class Player(sprite.MySprite):
         self.mooving_count = 0
         self.mooving = False
         self.whole_trail = pygame.sprite.Group()
-        self.index = 0
-        self.idle = 0
-        self.cnt = 0
-        self.rect = pygame.Rect(5, 5, 150, 198)
-        self.image = self.images[self.index]
-        for i in range(0, len(self.images)):
-            self.images[i] = pygame.transform.scale(self.images[i], (50, 150))
+        self.image = self.images[0]
         self.position = self.image.get_rect()
         self.position.x = start
         self.position.y = 500
@@ -100,13 +97,9 @@ class Player(sprite.MySprite):
 
     def move_right(self):
         self.position.x += self.velocity
-        self.image = self.images[self.index % 5 + 10]
-        self.idle = 0
 
     def move_left(self):
         self.position.x -= self.velocity
-        self.image = self.images[self.index % 5 + 15]
-        self.idle = 1
 
     def move_up(self):
         self.position.y -= self.velocity
@@ -157,15 +150,28 @@ class Player(sprite.MySprite):
         if abs(oplayer.position.x - self.position.x) < 40 and oplayer.attack == True:
             self.mooving = True
             self.mooving_count = 0
-            self.health -= self.hit
+            self.health += self.hit
         oplayer.attack = False
+
+    def dead(self):
+        if self.position.x > 1600  or self.position.y > 850 or self.position.y < 0 or self.position.x < 0:
+            self.life -= 1
+            self.health = 0
+            self.respawn()       
+
+    def respawn(self):
+        self.position.x = 800
+        self.position.y = 425
+
 
     def display_health(self, Round, position, color):
         pygame.init()
-        font = pygame.font.Font((None), 100)
-        health = font.render(str(self.health), True, color, (0, 0, 0))
+        font = pygame.font.Font((None), 150)
+        a = str(self.health) + " %"
+        health = font.render(a, True, color, (0, 0, 0))
+        life = font.render(str(self.life),True, color,(0, 0, 0))
         Round.screen.blit(health, position)
-        if self.health <= 0:
+        if self.life <= 0:
             #pygame.time.wait(3000)
             Round.playing = False
 
@@ -206,8 +212,8 @@ class Round(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.playing = True
-        self.screen_height = 1600
-        self.screen_width = 850
+        self.screen_width = 1600
+        self.screen_height = 850
         self.screen = pygame.display.set_mode((self.screen_height, self.screen_width))
         self.clock = pygame.time.Clock()
         self.FPS = 60
@@ -240,6 +246,6 @@ class Round(pygame.sprite.Sprite):
                 self, self.player, self.position1, (0, 0, 255))
             pygame.display.update()
             self.player.update_animation()
+            self.player2.update_animation()
 
 Round().loop()
-`
