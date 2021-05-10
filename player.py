@@ -1,6 +1,5 @@
 import pygame
 import sprite
-import time
 
 class Trail(pygame.sprite.Sprite):
 
@@ -44,33 +43,6 @@ class Trail(pygame.sprite.Sprite):
         temp.blit(self.origin_image, (0, 0))
         temp.set_alpha(opacity)        
         self.origin_image.blit(temp, [x, y])
-
-def import_images(character):
-    images_set = []
-    if character == "Servietski":
-        images_set.append(pygame.image.load('photos/sprite/IdleD0.png'))
-        images_set.append(pygame.image.load('photos/sprite/IdleD1.png'))
-        images_set.append(pygame.image.load('photos/sprite/IdleD2.png'))
-        images_set.append(pygame.image.load('photos/sprite/IdleD3.png'))
-        images_set.append(pygame.image.load('photos/sprite/IdleD4.png'))
-        images_set.append(pygame.image.load('photos/sprite/IdleG0.png'))
-        images_set.append(pygame.image.load('photos/sprite/IdleG1.png'))
-        images_set.append(pygame.image.load('photos/sprite/IdleG2.png'))
-        images_set.append(pygame.image.load('photos/sprite/IdleG3.png'))
-        images_set.append(pygame.image.load('photos/sprite/IdleG4.png'))
-        images_set.append(pygame.image.load('photos/sprite/WalkServiet00.png'))
-        images_set.append(pygame.image.load('photos/sprite/WalkServiet01.png'))
-        images_set.append(pygame.image.load('photos/sprite/WalkServiet02.png'))
-        images_set.append(pygame.image.load('photos/sprite/WalkServiet03.png'))
-        images_set.append(pygame.image.load('photos/sprite/WalkServiet04.png'))
-        images_set.append(pygame.image.load('photos/sprite/WalkServiet05.png'))
-        images_set.append(pygame.image.load('photos/sprite/WalkServiet06.png'))
-        images_set.append(pygame.image.load('photos/sprite/WalkServiet07.png'))
-        images_set.append(pygame.image.load('photos/sprite/WalkServiet08.png'))
-        images_set.append(pygame.image.load('photos/sprite/WalkServiet09.png'))
-    elif character == "":
-        pass
-    return images_set
 
 class Player(sprite.MySprite):
 
@@ -147,7 +119,7 @@ class Player(sprite.MySprite):
                 self.whole_trail.add(Trail(self))
 
     def pushed(self, oplayer):
-        if abs(oplayer.position.x - self.position.x) < 40 and oplayer.attack == True:
+        if abs(oplayer.position.x - self.position.x) < 70 and oplayer.attack == True:
             self.mooving = True
             self.mooving_count = 0
             self.health += self.hit
@@ -212,8 +184,8 @@ class Round(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.playing = True
-        self.screen_width = 1600
-        self.screen_height = 850
+        self.screen_width = 850
+        self.screen_height = 1600
         self.screen = pygame.display.set_mode((self.screen_height, self.screen_width))
         self.clock = pygame.time.Clock()
         self.FPS = 60
@@ -247,5 +219,3 @@ class Round(pygame.sprite.Sprite):
             pygame.display.update()
             self.player.update_animation()
             self.player2.update_animation()
-
-Round().loop()

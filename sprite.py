@@ -17,7 +17,7 @@ class MySprite(pygame.sprite.Sprite):
         self.animation = False
         self.time = 0
 
-    def start_animation():
+    def start_animation(self):
         self.animation = True
 
     def animate(self, yes=False):
@@ -38,7 +38,7 @@ def load_animation_images(sprite_name):
     for num in range(0, 5):
         image_path = path + str(num) + '.png'
         images.append(pygame.image.load(image_path))
-        images[num] = pygame.transform.scale(images[num], (100, 150))
+        images[num] = pygame.transform.scale(images[num], (80, 150))
     return images
 
 
