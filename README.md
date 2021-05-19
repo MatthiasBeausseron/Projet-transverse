@@ -6,7 +6,7 @@ You'll find in this document: <br>
 
 * Here is the game in a [dmg]() or [exe]() version to allow you to play. <br>
 <small>
-<mark>In the case it don't work, please install pygame download the code and run the file [main.py]() </mark>
+In the case it don't work, please install pygame download the code and run the file [main.py]()
 </small> <br>
 * This is our final [report]() for the project <br>
 ## Classes and object oriented code
