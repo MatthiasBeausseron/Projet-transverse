@@ -1,5 +1,6 @@
 import pygame
 from menu import *
+from sys import exit
 
 
 class Game():
@@ -67,3 +68,6 @@ class Game():
     def image(self):
         fond = pygame.image.load("photos/backgroundmenu.png").convert()
         self.display.blit(fond, (321, 0))
+
+    
+       

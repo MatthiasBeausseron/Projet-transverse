@@ -16,6 +16,7 @@ class Trail(pygame.sprite.Sprite):
         self.origin_image = self.image
         self.angle = 0
         
+        
     def rotate(self):
         if self.angle <= 0:
             self.angle += self.angle_velocity
@@ -47,7 +48,7 @@ class Trail(pygame.sprite.Sprite):
 class Player(sprite.MySprite):
 
     def __init__(self, start):
-        super().__init__("IdleD")
+        super().__init__("Servietsky")
         self.life = 3
         self.health = 0
         # self.health_max = 100
@@ -63,15 +64,26 @@ class Player(sprite.MySprite):
         self.position = self.image.get_rect()
         self.position.x = start
         self.position.y = 500
+        self.orientation = 1
+        self.bool_orientation = None
+        self.cpt = 0
+        self.mod = 4
+        self.game_over = False
 
-    def update_animation(self):
-        self.animate()
+    def update_animation(self, r):
+        self.animate(cpt = self.cpt, mod=self.mod)
 
     def move_right(self):
         self.position.x += self.velocity
-
+        self.bool_orientation = False
+        self.cpt = 10
+        self.mod = 5
+        
     def move_left(self):
         self.position.x -= self.velocity
+        self.bool_orientation = True
+        self.cpt = 15
+        self.mod = 4
 
     def move_up(self):
         self.position.y -= self.velocity
@@ -119,6 +131,10 @@ class Player(sprite.MySprite):
                 self.whole_trail.add(Trail(self))
 
     def pushed(self, oplayer):
+        if self.bool_orientation:
+            oplayer.orientation = -5
+        else:
+            oplayer.orientation = 5
         if abs(oplayer.position.x - self.position.x) < 70 and oplayer.attack == True:
             self.mooving = True
             self.mooving_count = 0
@@ -129,7 +145,9 @@ class Player(sprite.MySprite):
         if self.position.x > 1600  or self.position.y > 850 or self.position.y < 0 or self.position.x < 0:
             self.life -= 1
             self.health = 0
-            self.respawn()       
+            self.respawn()
+        if self.life == 0 : 
+            self.game_over = True     
 
     def respawn(self):
         self.position.x = 800
@@ -164,7 +182,7 @@ class Player(sprite.MySprite):
             self.move_left()
         
         self.mooving_count += 1
-        self.move_curve()
+        self.move_curve(applatisment_courbe=self.orientation)
         self.move_jump()
         self.update()
         for nuage in self.whole_trail:
@@ -209,7 +227,7 @@ class Round(pygame.sprite.Sprite):
                 self.pressed[event.key] = True
     
     def loop(self):
-        while True:
+        while not self.player.game_over or not self.player2.game_over:
             self.clock.tick(self.FPS)
             self.screen.blit(self.background_image, self.background_image_position)
             self.player.to_do_in_the_loop(pygame.K_RIGHT, pygame.K_LEFT, pygame.K_UP, pygame.K_DOWN, 
@@ -217,5 +235,10 @@ class Round(pygame.sprite.Sprite):
             self.player2.to_do_in_the_loop(pygame.K_d, pygame.K_q, pygame.K_z, pygame.K_s, 
                 self, self.player, self.position1, (0, 0, 255))
             pygame.display.update()
-            self.player.update_animation()
-            self.player2.update_animation()
+            self.player.update_animation(self)
+            self.player2.update_animation(self)
+        pygame.quit()
+        exit()
+
+a = Round()
+a.loop()

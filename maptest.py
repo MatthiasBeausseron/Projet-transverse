@@ -1,11 +1,8 @@
-import random
-import pygame as pg
-import player as pl
-vec = pg.math.Vector2
+from sprites import *
 
-TEST = "game_test"
-WIDTH = 1400
-HEIGHT = 850
+TITLE = "Smash"
+WIDTH = 1366
+HEIGHT = 768
 FPS = 60
 
 # Player properties
@@ -20,23 +17,13 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
-
-class platform(pg.sprite.Sprite):
-    def __init__(self, x, y, w, h):
-        pg.sprite.Sprite.__init__(self)
-        self.image = pg.Surface((w, h))
-        self.image.fill(GREEN)
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-
 class Game:
     def __init__(self):
         # initialize game window, etc
         pg.init()
         pg.mixer.init()
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
-        pg.display.set_caption(TEST)
+        pg.display.set_caption(TITLE)
         self.clock = pg.time.Clock()
         self.running = True
 
@@ -44,7 +31,7 @@ class Game:
         # start a new game
         self.all_sprites = pg.sprite.Group()
         self.platforms = pg.sprite.Group()
-        self.player = pl.Player(self)
+        self.player = Player(self)
         self.all_sprites.add(self.player)
         for rect in PLATFORM_LIST :
             p = platform(*rect)
@@ -70,6 +57,8 @@ class Game:
                 self.player.pos.y = hits[0].rect.top
                 self.player.vel.y = 0
 
+
+
     def events(self):
         # Game Loop - events
         for event in pg.event.get():
@@ -94,12 +83,22 @@ print("choose map 1, 2, or 3")
 map = int(input("Choose an option: "))
 print(map)
 if map == 1:
-    PLATFORM_LIST = [(0, HEIGHT - 40, WIDTH, 40),
-                     (WIDTH / 2 - 300, HEIGHT * 3 / 4, 600, 20),]
+    PLATFORM_LIST = [(75, HEIGHT - 150, WIDTH-250, 20),
+                     (WIDTH / 2 - 300, HEIGHT * 3 / 4 - 160, 600, 20),]
 elif map == 2:
-    PLATFORM_LIST = [(0, HEIGHT * 3 / 4, 400, 20),
-                     (WIDTH - 400, HEIGHT * 3 / 4, 400, 20),
-                     (0, HEIGHT - 40, WIDTH, 40)]
+    PLATFORM_LIST = [(275, HEIGHT * (3 / 4) - 300, 300, 20),
+                     (WIDTH - 550, HEIGHT * (3 / 4) - 300, 300, 20),
+                     (150, HEIGHT - 300, WIDTH-300, 20)]
+elif map == 3 :
+    PLATFORM_LIST = [(0, HEIGHT - 40, WIDTH, 40),
+                     (WIDTH / 2 - 200, HEIGHT * 3 / 4, 400, 20),
+                     (0, HEIGHT * 3 / 4, 200, 20),
+                     (WIDTH -200, HEIGHT * 3 / 4, 200, 20)]
+elif map == 4 :
+    PLATFORM_LIST = [(200, HEIGHT - 40, WIDTH - 400, 40),
+                     (WIDTH /2 - 300, HEIGHT * 3 / 4, 600, 20),
+                     ()]
+
 while g.running:
     g.new()
 
