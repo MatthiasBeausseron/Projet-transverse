@@ -50,7 +50,7 @@ class Player(sprite.MySprite):
     def __init__(self, start):
         super().__init__("Servietsky")
         self.life = 3
-        self.health = 0
+        self.health = 1
         # self.health_max = 100
         self.hit = 2
         self.attack = False
@@ -66,24 +66,28 @@ class Player(sprite.MySprite):
         self.position.y = 500
         self.orientation = 1
         self.bool_orientation = None
-        self.cpt = 0
-        self.mod = 4
         self.game_over = False
+        self.var = ""
 
-    def update_animation(self, r):
-        self.animate(cpt = self.cpt, mod=self.mod)
+    def update_animation(self):
+        if self.var == "R":
+            self.animate(mod=self.var)
+        elif self.var == "L":
+            self.animate(mod=self.var)
+        else:
+            self.animate(mod="S", yes=True)
 
     def move_right(self):
         self.position.x += self.velocity
         self.bool_orientation = False
-        self.cpt = 10
-        self.mod = 5
+        self.var = "R"
+        self.start_animation()
         
     def move_left(self):
         self.position.x -= self.velocity
         self.bool_orientation = True
-        self.cpt = 15
-        self.mod = 4
+        self.var = "L"
+        self.start_animation()
 
     def move_up(self):
         self.position.y -= self.velocity
@@ -120,9 +124,7 @@ class Player(sprite.MySprite):
             return 0
         if self.mooving:
             # constantes à placer en args quand chaque perso aura ses propres capacites
-            if 0 < self.position.x < 1400 and 0 < self.position.y < 800:
-                # la balle ne passe plus a travers les murs mais ne rebondit pas non plus
-                self.position.move_ip(applatisment_courbe, -equation_mouvement(self.mooving_count, force, angle))
+            self.position.move_ip(applatisment_courbe, -equation_mouvement(self.mooving_count, force, angle))
             # On ne peut pas verifier à time car =0 dans les (≈5) premieres secondes une autre solution 
             #est de faire un if self.mooving_count < xx le temps que le ballon bouge
             if int(equation_mouvement(self.mooving_count+5, force, angle)) == 0:
@@ -142,9 +144,9 @@ class Player(sprite.MySprite):
         oplayer.attack = False
 
     def dead(self):
-        if self.position.x > 1600  or self.position.y > 850 or self.position.y < 0 or self.position.x < 0:
+        if self.position.x > 1400  or self.position.y > 850 or self.position.y < 0 or self.position.x < 0:
             self.life -= 1
-            self.health = 0
+            self.health = 1
             self.respawn()
         if self.life == 0:
             self.game_over = True
@@ -157,10 +159,13 @@ class Player(sprite.MySprite):
     def display_health(self, Round, position, color):
         pygame.init()
         font = pygame.font.Font((None), 150)
-        a = str(self.health) + " %"
+        a = str(self.health - 1) + " %"
         health = font.render(a, True, color, (0, 0, 0))
         Round.screen.blit(health, position)
-        
+        font = pygame.font.Font((None), 90)
+        b = str(self.life) + " vies"
+        life = font.render(b, True, color, (0, 0, 0))
+        Round.screen.blit(life, (position[0], position[1]+90))
 
     def checking_events(self, right, left, up, down, Round):
         if Round.pressed.get(up) and Round.pressed.get(left):
@@ -179,7 +184,7 @@ class Player(sprite.MySprite):
             self.move_left()
         
         self.mooving_count += 1
-        self.move_curve(applatisment_courbe=self.orientation)
+        self.move_curve(force= self.health/5,applatisment_courbe=self.orientation)
         self.move_jump()
         self.update()
         for nuage in self.whole_trail:
@@ -212,8 +217,8 @@ class Round(pygame.sprite.Sprite):
         self.pressed = {}
         self.player = Player(1300)
         self.player2 = Player(30)
-        self.position1 = (500, 700)
-        self.position2 = (1000, 700)
+        self.position1 = [500, 700]
+        self.position2 = [1000, 700]
 
     def creating_events(self):
         for event in pygame.event.get():
@@ -233,8 +238,8 @@ class Round(pygame.sprite.Sprite):
             self.player2.to_do_in_the_loop(pygame.K_d, pygame.K_q, pygame.K_z, pygame.K_s, 
                 self, self.player, self.position1, (0, 0, 255))
             pygame.display.update()
-            self.player.update_animation(self)
-            self.player2.update_animation(self)
+            self.player.update_animation()
+            self.player2.update_animation()
         pygame.quit()
         exit()
 

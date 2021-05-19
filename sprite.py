@@ -20,14 +20,20 @@ class MySprite(pygame.sprite.Sprite):
         self.animation = True
 
     def animate(self, mod, yes=False):
-        self.current_image += 1
-        self.time += 1
-        if self.current_image >= len(self.images):
-            self.current_image = 0
-            if yes is False:
+        if self.animation:
+            self.current_image += 1
+            self.time += 1
+            if self.current_image >= len(self.images):
+                self.current_image = 0
+                if yes is False:
                     self.animation = False
-        if self.time%9 == 0:
-            self.image = self.images[self.current_image%4]
+            if self.time%9 == 0:
+                if mod == "S":
+                    self.image = self.images[self.current_image%4]
+                if mod == "R":
+                    self.image = self.images[self.current_image%4 + 10]
+                if mod == "L":
+                    self.image = self.images[self.current_image%4 + 15]
 
 
 def load_animation_images(sprite_name):
