@@ -1,11 +1,15 @@
 import pygame
 
+"""
+This class is used to create sprites for the character of the game.
+We have a dictionary that create an array of all the images of the character used in animation. 
+The dictionary allows to not create a new array each time the class is called.
+It is created by the function "load" that create the array in function of the name of the character.  
+Then we use the function "animate" to play the different animations of the character in function
+of their movements. 
+The function "start_animation" allows to have "animation" which are only activated when an action is performed, allowing other animations to be played non-stop. 
 
-# import sprite
-# class blabla(sprite.MySprite)
-# super().init("mummy")
-
-
+"""
 class MySprite(pygame.sprite.Sprite):
 
     def __init__(self, sprite_name):
@@ -36,9 +40,26 @@ class MySprite(pygame.sprite.Sprite):
                     self.image = self.images[self.current_image%4 + 10]
                 if mod == "L":
                     self.image = self.images[self.current_image%4 + 15]
-            if mod == "J":
-                if self.time%15 == 0:
-                    self.image = self.images[self.current_image%5 + 20]
+                if mod == "CL":
+                    self.image = self.images[self.current_image%8]
+                if mod == "CR":
+                    self.image = self.images[self.current_image%8 + 26]
+                if mod == "NR":
+                    self.image = self.images[self.current_image%6 + 46]
+                if mod == "NL":
+                    self.image = self.images[self.current_image%6 + 20]
+            if mod == "JR":
+                if self.time%4 == 0:
+                    self.image = self.images[self.current_image%6 + 27]
+            if mod == "JL":
+                if self.time%4 == 0:
+                    self.image = self.images[self.current_image%7 + 20]
+            if mod == "CJR":
+                if self.time%4 == 0:
+                    self.image = self.images[self.current_image%12 + 34]
+            if mod == "CJL":
+                if self.time%4 == 0:
+                    self.image = self.images[self.current_image%12 + 8]
 
 
 def load_animation_images(sprite_name, length):
@@ -53,5 +74,6 @@ def load_animation_images(sprite_name, length):
 
 
 animations = {
-    'Servietsky': load_animation_images('Servietsky', 26),
+    'Servietsky': load_animation_images('Servietsky', 33),
+    'Celest' : load_animation_images('Celest', 51)
 }
