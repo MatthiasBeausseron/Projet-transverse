@@ -146,8 +146,8 @@ class Player(sprite.MySprite):
             self.life -= 1
             self.health = 0
             self.respawn()
-        if self.life == 0 : 
-            self.game_over = True     
+        if self.life == 0:
+            self.game_over = True
 
     def respawn(self):
         self.position.x = 800
@@ -159,11 +159,8 @@ class Player(sprite.MySprite):
         font = pygame.font.Font((None), 150)
         a = str(self.health) + " %"
         health = font.render(a, True, color, (0, 0, 0))
-        life = font.render(str(self.life),True, color,(0, 0, 0))
         Round.screen.blit(health, position)
-        if self.life <= 0:
-            #pygame.time.wait(3000)
-            Round.playing = False
+        
 
     def checking_events(self, right, left, up, down, Round):
         if Round.pressed.get(up) and Round.pressed.get(left):
@@ -196,6 +193,7 @@ class Player(sprite.MySprite):
         self.pushed(oplayer)
         self.move_down()
         self.display_health(Round, position, color)
+        self.dead()
 
 class Round(pygame.sprite.Sprite):
 
@@ -227,7 +225,7 @@ class Round(pygame.sprite.Sprite):
                 self.pressed[event.key] = True
     
     def loop(self):
-        while not self.player.game_over or not self.player2.game_over:
+        while not self.player.game_over and not self.player2.game_over:
             self.clock.tick(self.FPS)
             self.screen.blit(self.background_image, self.background_image_position)
             self.player.to_do_in_the_loop(pygame.K_RIGHT, pygame.K_LEFT, pygame.K_UP, pygame.K_DOWN, 

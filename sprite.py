@@ -11,7 +11,6 @@ class MySprite(pygame.sprite.Sprite):
     def __init__(self, sprite_name):
         super().__init__()
         self.images = pygame.image.load(f'photos/sprite/{sprite_name}.png')
-        
         self.current_image = 0
         self.images = animations.get(sprite_name)
         self.animation = False
@@ -20,13 +19,15 @@ class MySprite(pygame.sprite.Sprite):
     def start_animation(self):
         self.animation = True
 
-    def animate(self, cpt, mod):
+    def animate(self, mod, yes=False):
         self.current_image += 1
         self.time += 1
         if self.current_image >= len(self.images):
             self.current_image = 0
+            if yes is False:
+                    self.animation = False
         if self.time%9 == 0:
-            self.image = self.images[self.current_image%mod + cpt]
+            self.image = self.images[self.current_image%4]
 
 
 def load_animation_images(sprite_name):

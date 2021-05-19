@@ -52,3 +52,9 @@ Les explications sont dans le code sous forme de commentaires.
 * Plus redefinition des touches: haut = sauter bas = frapper 
 ### Commit 15(Groupe):
 * '+' j'ai réglé le problème suivant: [ici](https://github.com/MatthiasBeausseron/Projet-transverse/issues/1)
+### Commits 16 (19 mai):
+* Seance de groupe avec multiples ajouts 
+* Respawn et vies 
+* Animations
+* Readme
+* Maps
