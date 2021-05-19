@@ -28,19 +28,24 @@ class MySprite(pygame.sprite.Sprite):
                 if yes is False:
                     self.animation = False
             if self.time%9 == 0:
-                if mod == "S":
+                if mod == "SL":
                     self.image = self.images[self.current_image%4]
+                if mod == "SR":
+                    self.image = self.images[self.current_image%4 +5]
                 if mod == "R":
                     self.image = self.images[self.current_image%4 + 10]
                 if mod == "L":
                     self.image = self.images[self.current_image%4 + 15]
+            if mod == "J":
+                if self.time%15 == 0:
+                    self.image = self.images[self.current_image%5 + 20]
 
 
-def load_animation_images(sprite_name):
+def load_animation_images(sprite_name, length):
     images = []
     path = f"photos/sprite/{sprite_name}"
 
-    for num in range(0, 19):
+    for num in range(length):
         image_path = path + str(num) + '.png'
         images.append(pygame.image.load(image_path))
         images[num] = pygame.transform.scale(images[num], (80, 150))
@@ -48,5 +53,5 @@ def load_animation_images(sprite_name):
 
 
 animations = {
-    'Servietsky': load_animation_images('Servietsky'),
+    'Servietsky': load_animation_images('Servietsky', 26),
 }

@@ -8,11 +8,11 @@ class Game():
         pygame.init()
         self.running, self.playing = True, False
         self.UP_KEY, self.DOWN_KEY, self.RIGHT_KEY, self.LEFT_KEY, self.START_KEY, self.BACK_KEY = False, False, False, False, False, False
-        self.DISPLAY_W, self.DISPLAY_H = 1366,768
+        self.DISPLAY_W, self.DISPLAY_H = 1600, 850
         self.display = pygame.Surface((self.DISPLAY_W,self.DISPLAY_H))
         self.window = pygame.display.set_mode(((self.DISPLAY_W,self.DISPLAY_H)))
         self.font_name = pygame.font.get_default_font()
-        self.YELLOW, self.RED = (255, 255, 0), (255, 0, 0)
+        self.YELLOW, self.RED = (255, 244, 0), (255, 0, 0)
         self.main_menu = MainMenu(self)
         self.options = OptionsMenu(self)
         self.volume = VolumeMenu(self)

@@ -58,3 +58,5 @@ Les explications sont dans le code sous forme de commentaires.
 * Animations
 * Readme
 * Maps
+* Le puissance des coups est maintenant relié au pourcentage affiché en bas de l'ecran
+* Le nombre de vies est affiché aussi de sorte à ce qu'on est plus à compter le nombre de vies restantes

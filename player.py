@@ -1,4 +1,5 @@
 import pygame
+from pygame.constants import SYSTEM_CURSOR_SIZEALL
 import sprite
 
 class Trail(pygame.sprite.Sprite):
@@ -51,7 +52,6 @@ class Player(sprite.MySprite):
         super().__init__("Servietsky")
         self.life = 3
         self.health = 1
-        # self.health_max = 100
         self.hit = 2
         self.attack = False
         self.velocity = 10
@@ -67,15 +67,23 @@ class Player(sprite.MySprite):
         self.orientation = 1
         self.bool_orientation = None
         self.game_over = False
-        self.var = ""
+        self.var = "SL"
+        self.start_animation()
 
     def update_animation(self):
         if self.var == "R":
             self.animate(mod=self.var)
+            self.var = "SL"
         elif self.var == "L":
             self.animate(mod=self.var)
-        else:
-            self.animate(mod="S", yes=True)
+            self.var = "SR"
+        elif self.var == "J":
+            self.animate(mod=self.var)
+            self.var = "SR"
+        elif self.var == "SL":
+            self.animate(mod=self.var, yes=True)
+        elif self.var == "SR":
+            self.animate(mod=self.var, yes=True)
 
     def move_right(self):
         self.position.x += self.velocity
@@ -98,6 +106,9 @@ class Player(sprite.MySprite):
 
     def move_jump(self):
         if self.jumping:
+            self.var = "J"
+            self.start_animation()
+            print("yes")
             if self.jump_count >= -10:
                 self.position.y -= (self.jump_count * abs(self.jump_count)) * 0.5
                 self.jump_count -= 1
@@ -200,11 +211,18 @@ class Player(sprite.MySprite):
         self.display_health(Round, position, color)
         self.dead()
 
+#class platform(pg.sprite.Sprite):
+    #def __init__(self, x, y, w, h):
+      #pg.sprite.Sprite.__init__(self)
+      #self.image = pg.Surface((w, h))
+      #self.image.fill(GREEN)
+      #self.rect = self.image.get_rect()
+      #self.rect.x = x
+      #self.rect.y = y  
 class Round(pygame.sprite.Sprite):
 
     def __init__(self):
         super().__init__()
-        self.playing = True
         self.screen_width = 850
         self.screen_height = 1600
         self.screen = pygame.display.set_mode((self.screen_height, self.screen_width))
@@ -240,8 +258,20 @@ class Round(pygame.sprite.Sprite):
             pygame.display.update()
             self.player.update_animation()
             self.player2.update_animation()
-        pygame.quit()
-        exit()
+        
+        self.background_image = pygame.image.load("photos/banniere.png").convert()
+        self.background_image = pygame.transform.scale(self.background_image, 
+            (self.screen_height, self.screen_width))
+        
+        self.screen.blit(self.background_image, self.background_image_position)
+        font = pygame.font.Font((None), 150)
+        a = "FIN DE PARTIE"
+        health = font.render(a, True, (0, 0, 0), (255, 255, 255))
+        self.screen.blit(health, (500, 500))
+        pygame.display.update()
+        pygame.time.wait(1000)
 
-a = Round()
-a.loop()
+        """revenir sur le menu ici"""
+        pygame.quit()
+        import main
+
