@@ -1,5 +1,6 @@
 import pygame
 import sprite
+import time
 
 class Trail(pygame.sprite.Sprite):
     """
@@ -140,17 +141,22 @@ class Player(sprite.MySprite):
         This function apply a constant gravity effect on the player.
         """
         ground = 430
-
-        if 140 < self.position.x < 505 or 860 < self.position.x < 1230:
+        print(self.position.x, self.position.y)
+        if 62 < self.position.x < 505 and not self.mooving and not self.jumping or 790 < self.position.x < 1290 and not self.mooving and not self.jumping:
             if self.position.y < 362:
                 self.position.y = 212
                 ground = 212
 
+        if 53 < self.position.x < 1300:
+            if self.position.y > 212:
+                ground = 425
+
         if self.position.y + self.velocity < ground and not self.mooving and not self.jumping:
             self.position.y += self.velocity
-        if not 53 < self.position.x < 1300:
+        if not 53 < self.position.x < 1300 or self.position.y > 425:
             self.position.y += self.velocity
-        
+
+
     def move_jump(self):
         """
         This function is constantly called but is activated with a boolean.
@@ -170,7 +176,7 @@ class Player(sprite.MySprite):
                 self.var = "CJR"
                 self.start_animation
             if self.jump_count >= -10:
-                self.position.y -= (self.jump_count * abs(self.jump_count)) * 0.65
+                self.position.y -= (self.jump_count * abs(self.jump_count)) * 0.5
                 self.jump_count -= 1
             else:
                 self.jump_count = 10
@@ -233,7 +239,7 @@ class Player(sprite.MySprite):
         But because you go out of the screen and that is what this function does.
         We have 3 lifes.
         """
-        if self.position.x > 1400  or self.position.y > 850 or self.position.y < 0 or self.position.x < 0:
+        if self.position.x > 1400  or self.position.y > 850 or self.position.y < -50  or self.position.x < 0:
             self.life -= 1
             self.health = 1
             self.respawn()
@@ -245,7 +251,7 @@ class Player(sprite.MySprite):
         When you go out of the screen and die this function make you come back in the middle of the screen.
         """
         self.position.x = 800
-        self.position.y = 425
+        self.position.y = 200
 
     def display_health(self, Round, position, color):
         """
