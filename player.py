@@ -67,7 +67,7 @@ class Player(sprite.MySprite):
         self.image = self.images[0]
         self.position = self.image.get_rect()
         self.position.x = start
-        self.position.y = 500
+        self.position.y = 0
         self.orientation = 1
         self.bool_orientation = None
         self.game_over = False
@@ -94,21 +94,21 @@ class Player(sprite.MySprite):
             self.animate(mod=self.var, yes=True)
         elif self.var == "SR":
             self.animate(mod=self.var, yes=True)
-        if self.var == "CR":
+        if self.var == "NL":
             self.animate(mod=self.var)
-            self.var = "NL"
-        elif self.var == "CL":
+            self.var = "CL"
+        elif self.var == "NR":
             self.animate(mod=self.var)
-            self.var = "NR"
+            self.var = "CR"
         elif self.var == "CJR":
             self.animate(mod=self.var)
-            self.var = "NR"
+            self.var = "CR"
         elif self.var == "CJL":
             self.animate(mod=self.var)
-            self.var = "NL"
-        elif self.var == "NL":
+            self.var = "CL"
+        elif self.var == "CL":
             self.animate(mod=self.var, yes=True)
-        elif self.var == "NR":
+        elif self.var == "CR":
             self.animate(mod=self.var, yes=True)
 
     def move_right(self):
@@ -119,8 +119,8 @@ class Player(sprite.MySprite):
         self.bool_orientation = False
         if self.var == "SL" or self.var == "SR":
             self.var = "R"
-        if self.var == "CL" or self.var == "CR":
-            self.var = "NR"
+        elif self.var == "CL" or self.var == "CR":
+            self.var = "NL"
         self.start_animation()
         
     def move_left(self):
@@ -131,24 +131,26 @@ class Player(sprite.MySprite):
         self.bool_orientation = True
         if self.var == "SL" or self.var == "SR":
             self.var = "L"
-        if self.var == "CL" or self.var == "CR":
-            self.var = "NL"
+        elif self.var == "CL" or self.var == "CR":
+            self.var = "NR"
         self.start_animation()
 
     def move_down(self, Round):
         """
         This function apply a constant gravity effect on the player.
         """
-        
-        for platform in Round.platforms:
-            if self.position.y < platform.rect.y:
-                ground = platform.rect.y
-                self.jumping = False
-                self.mooving = False
+        ground = 430
 
-        if 0 < self.position.y + self.velocity < ground and not self.mooving and not self.jumping:
+        if 140 < self.position.x < 505 or 860 < self.position.x < 1230:
+            if self.position.y < 362:
+                self.position.y = 212
+                ground = 212
+
+        if self.position.y + self.velocity < ground and not self.mooving and not self.jumping:
             self.position.y += self.velocity
-
+        if not 53 < self.position.x < 1300:
+            self.position.y += self.velocity
+        
     def move_jump(self):
         """
         This function is constantly called but is activated with a boolean.
@@ -161,14 +163,14 @@ class Player(sprite.MySprite):
             elif self.var == "SR":
                 self.var = "JR"
                 self.start_animation()
-            elif self.var == "NL":
+            elif self.var == "CL":
                 self.var = "CJL"
                 self.start_animation
-            elif self.var == "NR":
+            elif self.var == "CR":
                 self.var = "CJR"
                 self.start_animation
             if self.jump_count >= -10:
-                self.position.y -= (self.jump_count * abs(self.jump_count)) * 0.5
+                self.position.y -= (self.jump_count * abs(self.jump_count)) * 0.65
                 self.jump_count -= 1
             else:
                 self.jump_count = 10
@@ -219,7 +221,7 @@ class Player(sprite.MySprite):
             oplayer.orientation = -5
         else:
             oplayer.orientation = 5
-        if abs(oplayer.position.x - self.position.x) < 70 and oplayer.attack == True:
+        if abs(oplayer.position.x - self.position.x) < 70 and abs(oplayer.position.y - self.position.y) < 100 and oplayer.attack == True:
             self.mooving = True
             self.mooving_count = 0
             self.health += self.hit
@@ -324,7 +326,6 @@ class Platform(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((pos[2], pos[3]))
         green = (0, 255, 0)
-        self.image.fill(green)
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]
@@ -347,14 +348,13 @@ class Round(pygame.sprite.Sprite):
             (self.screen_height, self.screen_width))
         self.background_image_position = [0, 0]
         self.pressed = {}
-        self.player = Servietsky(1300)
-        self.player2 = Celest(30)
+        self.player = Servietsky(1230)
+        self.player2 = Celest(110)
         self.position1 = [500, 700]
         self.position2 = [1000, 700]
         self.all_sprites = pygame.sprite.Group()
-        self.platform_list = [(250, self.screen_width * (3 / 4) - 385, 300, 20),
-                          (self.screen_height - 550, self.screen_width * (3 / 4) - 385, 300, 20),
-                          (150, self.screen_width - 385, self.screen_height - 300, 20)]
+        self.platform_list = [(140, self.screen_width * (3 / 4) - 275, 365, 10),
+                          (self.screen_height - 590, self.screen_width * (3 / 4) - 275, 370, 10),]
         self.platforms = pygame.sprite.Group()
         
 
