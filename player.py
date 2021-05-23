@@ -71,7 +71,7 @@ class Player(sprite.MySprite):
         self.orientation = 1
         self.bool_orientation = None
         self.game_over = False
-        self.var = "SL"
+        
         self.start_animation()
         
     def update_animation(self):
@@ -117,7 +117,10 @@ class Player(sprite.MySprite):
         """
         self.position.x += self.velocity
         self.bool_orientation = False
-        self.var = "R"
+        if self.var == "SL" or self.var == "SR":
+            self.var = "R"
+        if self.var == "CL" or self.var == "CR":
+            self.var = "NR"
         self.start_animation()
         
     def move_left(self):
@@ -126,24 +129,24 @@ class Player(sprite.MySprite):
         """
         self.position.x -= self.velocity
         self.bool_orientation = True
-        self.var = "L"
+        if self.var == "SL" or self.var == "SR":
+            self.var = "L"
+        if self.var == "CL" or self.var == "CR":
+            self.var = "NL"
         self.start_animation()
 
     def move_down(self, Round):
         """
         This function apply a constant gravity effect on the player.
         """
-        ground = 500
-        grav = True
         
         for platform in Round.platforms:
             if self.position.y < platform.rect.y:
                 ground = platform.rect.y
-                grav = False
                 self.jumping = False
                 self.mooving = False
 
-        if 0 < self.position.y + self.velocity < ground and not self.mooving and not self.jumping and grav:
+        if 0 < self.position.y + self.velocity < ground and not self.mooving and not self.jumping:
             self.position.y += self.velocity
 
     def move_jump(self):
@@ -307,11 +310,13 @@ It allows the sprite class to know which skin is needed to attributate.
 class Servietsky(Player):
     def __init__(self, start):
         super().__init__(start, "Servietsky")
+        self.var = "SR"
 
 
 class Celest(Player):
     def __init__(self, start):
         super().__init__(start, "Celest")
+        self.var = "CL"
 
 
 class Platform(pygame.sprite.Sprite):
