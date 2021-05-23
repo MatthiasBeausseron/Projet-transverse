@@ -1,4 +1,4 @@
-from sprites import *
+from sprite import *
 
 TITLE = "Smash"
 WIDTH = 1366
