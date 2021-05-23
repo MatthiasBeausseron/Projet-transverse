@@ -7,8 +7,6 @@ You will find in this document: <br>
 * Here is the game in a [dmg]() or [exe]() version to allow you to play. <br>
 In the case it don't work, please install pygame download the code and run the file [main.py](https://github.com/MatthiasBeausseron/Projet-transverse/blob/main/main.py)<br>
 * This is our final [report]() for the project<br>
-# Features
-* 
 ## Code
 We used class in our project to make the code more legible and clean. Sometimes the result were the opposit but we were happy to learn the basis of using class.<br>
 

@@ -320,17 +320,6 @@ class Celest(Player):
         super().__init__(start, "Celest")
         self.var = "CL"
 
-
-class Platform(pygame.sprite.Sprite):
-    def __init__(self, pos):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((pos[2], pos[3]))
-        green = (0, 255, 0)
-        self.rect = self.image.get_rect()
-        self.rect.x = pos[0]
-        self.rect.y = pos[1]
-
-
 class Round(pygame.sprite.Sprite):
     """
     The class round is the game's loop, it has as init screen background and all things link to the middle were players will play.
@@ -352,13 +341,6 @@ class Round(pygame.sprite.Sprite):
         self.player2 = Celest(110)
         self.position1 = [500, 700]
         self.position2 = [1000, 700]
-        self.all_sprites = pygame.sprite.Group()
-        self.platform_list = [(140, self.screen_width * (3 / 4) - 275, 365, 10),
-                          (self.screen_height - 590, self.screen_width * (3 / 4) - 275, 370, 10),]
-        self.platforms = pygame.sprite.Group()
-        
-
-        
 
     def creating_events(self):
         """
@@ -383,12 +365,6 @@ class Round(pygame.sprite.Sprite):
                 self, self.player2, self.position2, (255, 0, 0))
             self.player2.to_do_in_the_loop(pygame.K_d, pygame.K_q, pygame.K_z, pygame.K_s, 
                 self, self.player, self.position1, (0, 0, 255))
-            
-            for rect in self.platform_list :
-                self.all_sprites.add(Platform(rect))
-                self.platforms.add(Platform(rect))
-            
-            self.all_sprites.draw(self.screen)
             
             pygame.display.update()
             self.player.update_animation()
