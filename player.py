@@ -413,7 +413,3 @@ class Round(pygame.sprite.Sprite):
         Then we import the main to come back in the main menu of the game.
         """
         import main
-
-
-a = Round()
-a.loop()
