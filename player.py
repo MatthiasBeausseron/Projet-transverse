@@ -229,7 +229,7 @@ class Player(sprite.MySprite):
         else:
             oplayer.orientation = 5
 
-        if  abs(oplayer.position.x - self.position.x) < 70 and abs(oplayer.position.y - self.position.y) < 100 and oplayer.attack == True and not self.protect:
+        if  abs(oplayer.position.x - self.position.x) < 70 and abs(oplayer.position.y - self.position.y) < 100 and oplayer.attack == True and not self.protect and not self.attack:
             self.mooving = True
             self.mooving_count = 0
             self.health += self.hit
