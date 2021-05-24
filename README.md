@@ -4,7 +4,7 @@ In this project we were quite free but had some restrictions. Which was, use pyg
 You will find in this document: <br>
 * In the file [commits.md](https://github.com/MatthiasBeausseron/Projet-transverse/blob/main/Commits.md), also called log book, a small description of all our added code in function of time. Then you will be able to go in [commits](https://github.com/MatthiasBeausseron/Projet-transverse/commits/main) and see the code added in link of the commit.
 
-* Here is the game in a [dmg]() or [exe]() version to allow you to play. <br>
+* Here is the game in [exe](https://github.com/MatthiasBeausseron/Projet-transverse/blob/main/main.exe) version to allow you to play. <br>
 In the case it don't work, please install pygame download the code and run the file [main.py](https://github.com/MatthiasBeausseron/Projet-transverse/blob/main/main.py)<br>
 * This is our final [report]() for the project<br>
 ## Code
