@@ -58,6 +58,7 @@ class Player(sprite.MySprite):
         self.life = 3
         self.health = 1
         self.hit = 2
+        self.protect = False
         self.attack = False
         self.velocity = 10
         self.jump_count = 10
@@ -74,7 +75,8 @@ class Player(sprite.MySprite):
         self.game_over = False
         
         self.start_animation()
-        
+        self.protect = False
+
     def update_animation(self):
         """
         This function allows us to update the animations of the characters in the loop.
@@ -136,12 +138,11 @@ class Player(sprite.MySprite):
             self.var = "NR"
         self.start_animation()
 
-    def move_down(self, Round):
+    def move_down(self):
         """
         This function apply a constant gravity effect on the player.
         """
         ground = 430
-        print(self.position.x, self.position.y)
         if 62 < self.position.x < 505 and not self.mooving and not self.jumping or 790 < self.position.x < 1290 and not self.mooving and not self.jumping:
             if self.position.y < 362:
                 self.position.y = 212
@@ -227,13 +228,19 @@ class Player(sprite.MySprite):
             oplayer.orientation = -5
         else:
             oplayer.orientation = 5
-        if abs(oplayer.position.x - self.position.x) < 70 and abs(oplayer.position.y - self.position.y) < 100 and oplayer.attack == True:
+
+        if  abs(oplayer.position.x - self.position.x) < 70 and abs(oplayer.position.y - self.position.y) < 100 and oplayer.attack == True and not self.protect:
             self.mooving = True
             self.mooving_count = 0
             self.health += self.hit
+        else:
+            self.protect = False
         oplayer.attack = False
 
-    def dead(self):
+
+
+
+    def dead(self,):
         """
         In this game you are not dead because no more life.
         But because you go out of the screen and that is what this function does.
@@ -246,12 +253,12 @@ class Player(sprite.MySprite):
         if self.life == 0:
             self.game_over = True
 
-    def respawn(self):
+    def respawn(self,):
         """
         When you go out of the screen and die this function make you come back in the middle of the screen.
         """
-        self.position.x = 800
-        self.position.y = 200
+        self.position.x = 900
+        self.position.y = 150
 
     def display_health(self, Round, position, color):
         """
@@ -261,14 +268,14 @@ class Player(sprite.MySprite):
         pygame.init()
         font = pygame.font.Font((None), 150)
         a = str(self.health - 1) + " %"
-        health = font.render(a, True, color, (0, 0, 0))
+        health = font.render(a, True, color, (255, 255, 0))
         Round.screen.blit(health, position)
         font = pygame.font.Font((None), 90)
-        b = str(self.life) + " vies"
-        life = font.render(b, True, color, (0, 0, 0))
+        b = str(self.life) + " Life"
+        life = font.render(b, True, color, (255, 255, 0))
         Round.screen.blit(life, (position[0], position[1]+90))
 
-    def checking_events(self, right, left, up, down, Round):
+    def checking_events(self, right, left, up, down, attack, Round):
         """
         This function is checking the keyboard response for specific key given in argument.
         Depending on the pressed key, (stocked in a dictionnary), the player will go right, left and more.
@@ -283,12 +290,16 @@ class Player(sprite.MySprite):
             self.move_right()
         elif Round.pressed.get(up):
             self.jumping = True
+        #elif Round.pressed.get(down) and Round.pressed.get(attack):
+        #    self.attack = False
         elif Round.pressed.get(down):
-            self.attack = True
+            self.protect = True
         elif Round.pressed.get(right):
             self.move_right()
         elif Round.pressed.get(left):
             self.move_left()
+        elif Round.pressed.get(attack):
+            self.attack = True
         
         self.mooving_count += 1
         self.move_curve(force= self.health/5,applatisment_courbe=self.orientation)
@@ -297,17 +308,17 @@ class Player(sprite.MySprite):
         for nuage in self.whole_trail:
             nuage.move()
 
-    def to_do_in_the_loop(self, right, left, up, down, Round, oplayer, position, color):
+    def to_do_in_the_loop(self, right, left, up, down, attack, Round, oplayer, position, color):
         """
         This function is mainly used in the game's loop and a list of all things to do is in it.
         All functions called in this function were describe upper in the code.
         """
         Round.creating_events()
-        self.checking_events(right, left, up, down, Round)
+        self.checking_events(right, left, up, down, attack, Round)
         self.whole_trail.draw(Round.screen)
         Round.screen.blit(self.image, self.position)
         self.pushed(oplayer)
-        self.move_down(Round)
+        self.move_down()
         self.display_health(Round, position, color)
         self.dead()
 
@@ -356,7 +367,7 @@ class Round(pygame.sprite.Sprite):
         self.pressed = {}
         self.player = Servietsky(1230)
         self.player2 = Celest(110)
-        self.position1 = [500, 700]
+        self.position1 = [400, 700]
         self.position2 = [1000, 700]
         self.all_sprites = pygame.sprite.Group()
         self.platform_list = [(140, self.screen_width * (3 / 4) - 275, 365, 10),
@@ -385,9 +396,9 @@ class Round(pygame.sprite.Sprite):
         while not self.player.game_over and not self.player2.game_over:
             self.clock.tick(self.FPS)
             self.screen.blit(self.background_image, self.background_image_position)
-            self.player.to_do_in_the_loop(pygame.K_RIGHT, pygame.K_LEFT, pygame.K_UP, pygame.K_DOWN, 
+            self.player.to_do_in_the_loop(pygame.K_RIGHT, pygame.K_LEFT, pygame.K_UP, pygame.K_DOWN, pygame.K_m,
                 self, self.player2, self.position2, (255, 0, 0))
-            self.player2.to_do_in_the_loop(pygame.K_d, pygame.K_q, pygame.K_z, pygame.K_s, 
+            self.player2.to_do_in_the_loop(pygame.K_d, pygame.K_q, pygame.K_z, pygame.K_s, pygame.K_f,
                 self, self.player, self.position1, (0, 0, 255))
             
             for rect in self.platform_list :
@@ -403,16 +414,16 @@ class Round(pygame.sprite.Sprite):
         After the while loop, after the game a goodbye screen is displayed during 1 second.
         """
         self.background_image = pygame.image.load("photos/banniere.png").convert()
-        self.background_image = pygame.transform.scale(self.background_image, 
-            (self.screen_height, self.screen_width))
+        self.background_image = pygame.transform.scale(self.background_image,
+            (self.screen_height//2, self.screen_width//2))
         
-        self.screen.blit(self.background_image, self.background_image_position)
+        self.screen.blit(self.background_image, (350,50))
         font = pygame.font.Font((None), 150)
-        a = "FIN DE PARTIE"
-        health = font.render(a, True, (0, 0, 0), (255, 255, 255))
+        a = "Winner!"
+        health = font.render(a, True, (255, 0, 0), (255,223,43))
         self.screen.blit(health, (500, 500))
         pygame.display.update()
-        pygame.time.wait(1000)
+        pygame.time.wait(3000)
 
         pygame.quit()
         """

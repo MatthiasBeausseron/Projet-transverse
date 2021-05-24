@@ -239,13 +239,13 @@ class ControlsMenu(Menu):
             self.game.draw_text('Press "right_arrow" to go right', 30, self.game.DISPLAY_W/ 2 -200, self.game.DISPLAY_H / 2 + 130)
             self.game.draw_text('Press "up_arrow" to jump', 30, self.game.DISPLAY_W/ 2 -200, self.game.DISPLAY_H / 2 + 170)
             self.game.draw_text('Press "M" to attack', 30, self.game.DISPLAY_W/ 2 -200, self.game.DISPLAY_H / 2 + 210)
-            self.game.draw_text('Press "L" to grab', 30, self.game.DISPLAY_W / 2 -200, self.game.DISPLAY_H / 2 + 250)
+            self.game.draw_text('Press "down_arrow" to protect', 30, self.game.DISPLAY_W / 2 -200, self.game.DISPLAY_H / 2 + 250)
             self.game.draw_text('Player 2', 40, self.game.DISPLAY_W / 2+200, self.game.DISPLAY_H / 2 + 50)
             self.game.draw_text('Press "Q" to go left', 30, self.game.DISPLAY_W / 2 +200, self.game.DISPLAY_H / 2 + 90)
             self.game.draw_text('Press "D" to go right', 30, self.game.DISPLAY_W / 2 +200, self.game.DISPLAY_H / 2 + 130)
             self.game.draw_text('Press "Z" to jump', 30, self.game.DISPLAY_W / 2 +200, self.game.DISPLAY_H / 2 + 170)
             self.game.draw_text('Press "F" to attack', 30, self.game.DISPLAY_W / 2 + 200, self.game.DISPLAY_H / 2 + 210)
-            self.game.draw_text('Press "G" to grab', 30, self.game.DISPLAY_W / 2 + 200, self.game.DISPLAY_H / 2 + 250)
+            self.game.draw_text('Press "s" to protect', 30, self.game.DISPLAY_W / 2 + 200, self.game.DISPLAY_H / 2 + 250)
             self.blit_screen()
 
 class CreditsMenu(Menu):
@@ -277,6 +277,7 @@ class BonusMenu(Menu):
         self.coopx, self.coopy = self.mid_w, self.mid_h + 30
         self.cursor_rect.midtop = (self.coopx + self.offset+40, self.coopy)
 
+
     def display_menu(self):
         self.run_display = True
         while self.run_display:
@@ -286,6 +287,7 @@ class BonusMenu(Menu):
             self.game.image()
             self.game.draw_text('Bonus', 100, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 - 40)
             self.game.draw_text("Coop", 40, self.coopx, self.coopy)
+            self.game.draw_text('Coming Soon...', 40, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 + 80)
             self.draw_cursor()
             self.blit_screen()
 

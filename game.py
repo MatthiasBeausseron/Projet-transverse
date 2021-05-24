@@ -12,7 +12,7 @@ class Game():
         self.display = pygame.Surface((self.DISPLAY_W,self.DISPLAY_H))
         self.window = pygame.display.set_mode(((self.DISPLAY_W,self.DISPLAY_H)))
         self.font_name = pygame.font.get_default_font()
-        self.YELLOW, self.RED = (255, 244, 0), (255, 0, 0)
+        self.YELLOW, self.RED = (255,223,43), (255, 0, 0)
         self.main_menu = MainMenu(self)
         self.options = OptionsMenu(self)
         self.volume = VolumeMenu(self)
@@ -66,8 +66,8 @@ class Game():
         self.display.blit(text_surface,text_rect)
 
     def image(self):
-        fond = pygame.image.load("photos/backgroundmenu.png").convert()
-        self.display.blit(fond, (321, 0))
+        fond = pygame.image.load("photos/finalbackgroundmenu.png")
+        self.display.blit(fond, (400, -89))
 
     
        
